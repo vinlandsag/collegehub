@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration - Kerala Events Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="profile-corner">
+                <a href="profile.html" class="profile-link">
+                    <span class="profile-icon">👤</span>
+                    My Profile
+                </a>
+            </div>
+            <h1>Kerala Events Hub</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="dashboard.html" class="nav-link">All Events</a>
+                <a href="my-events.html" class="nav-link">My Events</a>
+                <a href="#" class="nav-link" id="logout-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="event-details">
+            <h2 id="event-title">Event Title</h2>
+            <div class="event-info">
+                <div class="event-meta">
+                    <p><strong>College:</strong> <span id="event-college">College Name</span></p>
+                    <p><strong>Date:</strong> <span id="event-date">Event Date</span></p>
+                    <p><strong>Time:</strong> <span id="event-time">Event Time</span></p>
+                    <p><strong>Venue:</strong> <span id="event-venue">Event Venue</span></p>
+                    <p><strong>Type:</strong> <span id="event-type">Event Type</span></p>
+                </div>
+                <div class="event-description">
+                    <h3>Description</h3>
+                    <p id="event-description">Event description will be loaded here...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="registration-form">
+            <h2>Register for this Event</h2>
+            <form id="event-reg-form">
+                <div class="form-group">
+                    <label for="reg-name">Full Name:</label>
+                    <input type="text" id="reg-name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">Email:</label>
+                    <input type="email" id="reg-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-phone">Phone Number:</label>
+                    <input type="tel" id="reg-phone" name="phone" required pattern="[0-9]{10}">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-college">College:</label>
+                    <input type="text" id="reg-college" name="college" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-year">Year of Study:</label>
+                    <select id="reg-year" name="year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                        <option value="5">5th Year</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-branch">Branch/Specialization:</label>
+                    <input type="text" id="reg-branch" name="branch" placeholder="e.g., Computer Science, Mechanical, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="reg-terms" name="terms" required>
+                        I agree to the terms and conditions and understand the event guidelines.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn">Register for Event</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Kerala Events Hub</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Check authentication
+        function checkAuth() {
+            const userData = localStorage.getItem('keralaEventsUser');
+            if (!userData) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return JSON.parse(userData);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = checkAuth();
+            if (userData) {
+                // Pre-fill form with user data
+                const nameField = document.getElementById('reg-name');
+                const emailField = document.getElementById('reg-email');
+                const phoneField = document.getElementById('reg-phone');
+                const collegeField = document.getElementById('reg-college');
+
+                if (nameField) nameField.value = userData.name;
+                if (emailField) emailField.value = userData.email;
+                if (phoneField) phoneField.value = userData.phone;
+                if (collegeField) collegeField.value = userData.college;
+
+                // Add logout functionality
+                document.getElementById('logout-link').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('keralaEventsUser');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

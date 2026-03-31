@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Events - Kerala Events Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="profile-corner">
+                <a href="profile.html" class="profile-link">
+                    <span class="profile-icon">👤</span>
+                    My Profile
+                </a>
+            </div>
+            <h1>Kerala Events Hub</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="dashboard.html" class="nav-link">All Events</a>
+                <a href="my-events.html" class="nav-link active">My Events</a>
+                <a href="#" class="nav-link" id="logout-link">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="user-profile">
+            <h2>My Registered Events</h2>
+            <p>Welcome back, <span id="user-name">Student</span>!</p>
+            <p>You have <span id="event-count">0</span> registered events</p>
+        </section>
+
+        <section id="registered-events">
+            <div id="events-container">
+                <!-- Registered events will be populated here -->
+                <div class="registered-event-card">
+                    <div class="event-header">
+                        <h3>Code Wars 2.0</h3>
+                        <span class="event-status status-confirmed">Confirmed</span>
+                    </div>
+                    <div class="event-details">
+                        <p><strong>College:</strong> Federal Institute of Science And Technology</p>
+                        <p><strong>Date:</strong> August 25, 2024</p>
+                        <p><strong>Time:</strong> 9:00 AM - 9:00 PM</p>
+                        <p><strong>Venue:</strong> FISAT Main Auditorium</p>
+                        <p><strong>Registration ID:</strong> REG2024001</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-secondary">View Details</button>
+                        <button class="btn btn-danger">Cancel Registration</button>
+                    </div>
+                </div>
+
+                <div class="registered-event-card">
+                    <div class="event-header">
+                        <h3>AI/ML Bootcamp</h3>
+                        <span class="event-status status-pending">Pending Confirmation</span>
+                    </div>
+                    <div class="event-details">
+                        <p><strong>College:</strong> Rajagiri School of Engineering & Technology</p>
+                        <p><strong>Date:</strong> September 2, 2024</p>
+                        <p><strong>Time:</strong> 10:00 AM - 5:00 PM</p>
+                        <p><strong>Venue:</strong> Rajagiri Tech Park</p>
+                        <p><strong>Registration ID:</strong> REG2024002</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-secondary">View Details</button>
+                        <button class="btn btn-danger">Cancel Registration</button>
+                    </div>
+                </div>
+
+                <div class="registered-event-card">
+                    <div class="event-header">
+                        <h3>Flutter Fest</h3>
+                        <span class="event-status status-confirmed">Confirmed</span>
+                    </div>
+                    <div class="event-details">
+                        <p><strong>College:</strong> College of Engineering Trivandrum</p>
+                        <p><strong>Date:</strong> August 30, 2024</p>
+                        <p><strong>Time:</strong> 2:00 PM - 6:00 PM</p>
+                        <p><strong>Venue:</strong> CET Seminar Hall</p>
+                        <p><strong>Registration ID:</strong> REG2024003</p>
+                    </div>
+                    <div class="event-actions">
+                        <button class="btn btn-secondary">View Details</button>
+                        <button class="btn btn-danger">Cancel Registration</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-events" style="display: none;">
+                <h3>No Registered Events</h3>
+                <p>You haven't registered for any events yet.</p>
+                <a href="dashboard.html" class="btn">Browse Events</a>
+            </div>
+        </section>
+
+        <section id="upcoming-reminders">
+            <h2>Upcoming Event Reminders</h2>
+            <div class="reminder-list">
+                <div class="reminder-item">
+                    <p><strong>Code Wars 2.0</strong> - Starts in 3 days</p>
+                    <small>Don't forget to bring your laptop and student ID</small>
+                </div>
+                <div class="reminder-item">
+                    <p><strong>AI/ML Bootcamp</strong> - Starts in 1 week</p>
+                    <small>Prerequisites: Basic programming knowledge recommended</small>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Kerala Events Hub</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Check authentication
+        function checkAuth() {
+            const userData = localStorage.getItem('keralaEventsUser');
+            if (!userData) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return JSON.parse(userData);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = checkAuth();
+            if (userData) {
+                // Update user name
+                const userNameElement = document.getElementById('user-name');
+                if (userNameElement) userNameElement.textContent = userData.name;
+
+                // Add logout functionality
+                document.getElementById('logout-link').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('keralaEventsUser');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

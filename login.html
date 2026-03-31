@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Kerala Events Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Kerala Events Hub</h1>
+    </header>
+
+    <main>
+        <section id="login-form">
+            <h2>Join Kerala Events Hub</h2>
+            <p>Enter your details to discover events near your college</p>
+
+            <form action="dashboard.html" method="get">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" >
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+                </div>
+
+                <div class="form-group">
+                    <label for="college">College Name:</label>
+                    <input type="text" id="college" name="college" required list="colleges">
+                    <datalist id="colleges">
+                        <!-- Kerala colleges will be populated here -->
+                        <option value="College of Engineering Trivandrum">
+                        <option value="Government Engineering College Thrissur">
+                        <option value="Mar Athanasius College of Engineering">
+                        <option value="Rajagiri School of Engineering & Technology">
+                        <option value="Federal Institute of Science And Technology">
+                        <option value="SCMS School of Engineering and Technology">
+                        <option value="Saintgits College of Engineering">
+                        <option value="Jyothi Engineering College">
+                        <option value="Vidya Academy of Science and Technology">
+                        <option value="Musaliar College of Engineering and Technology">
+                        <option value="TKM College of Engineering">
+                        <option value="NSS College of Engineering">
+                        <option value="College of Engineering Chengannur">
+                        <option value="Government Engineering College Kozhikode">
+                        <option value="Government Engineering College Palakkad">
+                        <option value="St.Joseph College of Engineeringand Technology,Palai">
+                    </datalist>
+                </div>
+
+                <button type="submit" class="btn">Find Events</button>
+            </form>
+
+                
+        
+
+            <p class="note">* Your college location helps us find nearby events and build a better network for all students.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Kerala Events Hub</p>
+    </footer>
+
+    <script>
+        // Handle login form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const userData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                college: formData.get('college'),
+                otp: formData.get('otp'),
+                loggedIn: true,
+                loginTime: new Date().toISOString()
+            };
+
+            // Store user data in localStorage
+            localStorage.setItem('keralaEventsUser', JSON.stringify(userData));
+
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>

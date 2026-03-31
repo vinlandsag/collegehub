@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Kerala Events Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="profile-corner">
+                <a href="profile.html" class="profile-link">
+                    <span class="profile-icon">👤</span>
+                    My Profile
+                </a>
+            </div>
+            <h1>Kerala Events Hub</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="dashboard.html" class="nav-link active">All Events</a>
+                <a href="my-events.html" class="nav-link">My Events</a>
+                <a href="#" class="nav-link" id="logout-link">Logout</a>
+            </nav>
+        </div>
+        <div class="filter-buttons">
+            <button id="filter-all" class="filter-btn active">All Events</button>
+            <button id="filter-hackathon" class="filter-btn">Hackathons</button>
+            <button id="filter-workshop" class="filter-btn">Workshops</button>
+            <button id="filter-talk" class="filter-btn">Tech Talks</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="user-info">
+            <h2>Welcome, <span id="user-name">Student</span>!</h2>
+            <p>Events near your college: <span id="user-college">Your College</span></p>
+        </section>
+
+        <section id="events">
+            <h2>Nearby Events</h2>
+            <div id="events-grid" class="events-grid">
+                <!-- Events will be populated here -->
+                <div class="event-card" data-type="hackathon">
+                    <h3>Code Wars 2.0</h3>
+                    <p class="event-college">Federal Institute of Science And Technology</p>
+                    <p class="event-date">August 25, 2024</p>
+                    <p class="event-distance">5km away</p>
+                    <p class="event-description">A 24-hour coding competition featuring challenges in algorithms, web development, and machine learning.</p>
+                    <div class="event-actions">
+                        <a href="event-registration.html?event=codewars" class="btn">Register Now</a>
+                        <button class="btn btn-secondary">View Details</button>
+                    </div>
+                </div>
+
+                <div class="event-card" data-type="workshop">
+                    <h3>AI/ML Bootcamp</h3>
+                    <p class="event-college">Rajagiri School of Engineering & Technology</p>
+                    <p class="event-date">September 2, 2024</p>
+                    <p class="event-distance">12km away</p>
+                    <p class="event-description">Learn the fundamentals of Artificial Intelligence and Machine Learning with hands-on projects.</p>
+                    <div class="event-actions">
+                        <a href="event-registration.html?event=aiml" class="btn">Register Now</a>
+                        <button class="btn btn-secondary">View Details</button>
+                    </div>
+                </div>
+
+                <div class="event-card" data-type="workshop">
+                    <h3>Flutter Fest</h3>
+                    <p class="event-college">College of Engineering Trivandrum</p>
+                    <p class="event-date">August 30, 2024</p>
+                    <p class="event-distance">25km away</p>
+                    <p class="event-description">Build beautiful, natively compiled applications for mobile from a single codebase.</p>
+                    <div class="event-actions">
+                        <a href="event-registration.html?event=flutter" class="btn">Register Now</a>
+                        <button class="btn btn-secondary">View Details</button>
+                    </div>
+                </div>
+
+                <div class="event-card" data-type="talk">
+                    <h3>Future of Web Development</h3>
+                    <p class="event-college">Model Engineering College</p>
+                    <p class="event-date">September 5, 2024</p>
+                    <p class="event-distance">8km away</p>
+                    <p class="event-description">Explore emerging trends in web development including Web3, PWAs, and modern frameworks.</p>
+                    <div class="event-actions">
+                        <a href="event-registration.html?event=webdev" class="btn">Register Now</a>
+                        <button class="btn btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Kerala Events Hub</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Check authentication
+        function checkAuth() {
+            const userData = localStorage.getItem('keralaEventsUser');
+            if (!userData) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return JSON.parse(userData);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = checkAuth();
+            if (userData) {
+                // Update user info in header if needed
+                const userNameElement = document.querySelector('#user-info #user-name');
+                const userCollegeElement = document.querySelector('#user-info #user-college');
+
+                if (userNameElement) userNameElement.textContent = userData.name;
+                if (userCollegeElement) userCollegeElement.textContent = userData.college;
+
+                // Add logout functionality
+                document.getElementById('logout-link').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('keralaEventsUser');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
